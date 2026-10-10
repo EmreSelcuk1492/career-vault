@@ -1,0 +1,49 @@
+{
+  "$comment": "Sidecar for templates/. Keys are paths relative to templates/. Each entry may set `when` (the tiny when-grammar from the contract), `mode` (file mode in the output, e.g. 755) and `as` (the published path when it differs from the template path; used for dotfiles that tooling would otherwise rewrite). Files not listed here are unconditional and keep their path.",
+  "options": {
+    "seasons": [
+      { "id": "summer-2027", "label": "Summer 2027" },
+      { "id": "spring-2027", "label": "Spring 2027" },
+      { "id": "fall-2027", "label": "Fall 2027" },
+      { "id": "summer-2028", "label": "Summer 2028" }
+    ],
+    "roles": [
+      { "id": "swe", "label": "Software engineering" },
+      { "id": "pm", "label": "Product" },
+      { "id": "tpm", "label": "Technical program" },
+      { "id": "data", "label": "Data / ML" },
+      { "id": "design", "label": "Design" },
+      { "id": "solutions", "label": "Solutions / SA" },
+      { "id": "consulting", "label": "Consulting" },
+      { "id": "research", "label": "Research" }
+    ],
+    "agents": [
+      { "id": "claude", "label": "Claude Code" },
+      { "id": "cursor", "label": "Cursor" },
+      { "id": "codex", "label": "Codex" },
+      { "id": "none", "label": "No agent, just Obsidian" }
+    ],
+    "connectors": [
+      { "id": "gmail", "label": "Gmail" },
+      { "id": "calendar", "label": "Google Calendar" },
+      { "id": "granola", "label": "Granola" },
+      { "id": "linkedin", "label": "LinkedIn" },
+      { "id": "chrome", "label": "Chrome" }
+    ]
+  },
+  "files": {
+    "CLAUDE.md": { "when": "agent == claude" },
+    "AGENTS.md": { "when": "agent != none" },
+    ".cursor/rules/career-vault.mdc": { "when": "agent == cursor" },
+    ".claude/settings.json": { "when": "agent == claude" },
+    ".claude/hooks/auto-stage.sh": { "when": "agent == claude", "mode": "755" },
+    ".claude/hooks/auto-commit.sh": { "when": "agent == claude && push", "mode": "755" },
+    ".claude/hooks/block-worktree.sh": { "when": "agent == claude", "mode": "755" },
+    ".claude/skills/apply/SKILL.md": { "when": "agent == claude" },
+    ".claude/skills/company/SKILL.md": { "when": "agent == claude" },
+    ".claude/skills/interview/SKILL.md": { "when": "agent == claude" },
+    ".claude/skills/pipeline/SKILL.md": { "when": "agent == claude" },
+    "meta/connectors.md": { "when": "connector:gmail || connector:calendar || connector:granola || connector:linkedin || connector:chrome" },
+    "_gitignore": { "as": ".gitignore" }
+  }
+}

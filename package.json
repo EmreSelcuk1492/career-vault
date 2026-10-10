@@ -1,0 +1,54 @@
+{
+  "name": "career-vault",
+  "version": "0.1.0",
+  "description": "Scaffold a Markdown internship and job-search vault that an AI coding agent runs for you: routing rules, note templates, hubs, and git hooks.",
+  "type": "module",
+  "bin": {
+    "career-vault": "bin/career-vault.js"
+  },
+  "main": "src/render.js",
+  "exports": {
+    ".": "./src/render.js",
+    "./kit.json": "./dist/kit.json"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build-kit.mjs",
+    "test": "node scripts/build-kit.mjs && node --test test/render.test.mjs test/kit.test.mjs",
+    "sync-site": "node scripts/sync-site.mjs",
+    "prepack": "node scripts/build-kit.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmreSelcuk1492/career-vault.git"
+  },
+  "homepage": "https://github.com/EmreSelcuk1492/career-vault#readme",
+  "bugs": {
+    "url": "https://github.com/EmreSelcuk1492/career-vault/issues"
+  },
+  "keywords": [
+    "internship",
+    "job-search",
+    "career",
+    "obsidian",
+    "markdown",
+    "vault",
+    "claude-code",
+    "cursor",
+    "codex",
+    "agent",
+    "scaffold",
+    "cli"
+  ],
+  "author": "Emre Selcuk (https://www.emrecanselcuk.com)",
+  "license": "MIT"
+}
