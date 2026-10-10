@@ -171,7 +171,10 @@ function quote(s) {
 
 export function toCommand(answers, prefix = COMMAND_PREFIX) {
   const a = { ...DEFAULT_ANSWERS, ...answers };
-  const parts = [prefix, '--name', quote(a.name), '--season', a.season, '--roles', (a.roles ?? []).join(','), '--agent', a.agent];
+  const parts = [prefix];
+  const name = String(a.name ?? '').trim();
+  if (name && name !== DEFAULT_ANSWERS.name) parts.push('--name', quote(name));
+  parts.push('--season', a.season, '--roles', (a.roles ?? []).join(','), '--agent', a.agent);
   if (a.connectors && a.connectors.length) parts.push('--connectors', a.connectors.join(','));
   parts.push(a.push ? '--push' : '--no-push');
   return parts.join(' ');
