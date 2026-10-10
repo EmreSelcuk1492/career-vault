@@ -2,6 +2,7 @@
 description: Operating rules for {{whose}} career vault
 alwaysApply: true
 ---
+<!-- career-vault {{version}} · (c) 2026 Emre Selcuk · MIT · https://github.com/EmreSelcuk1492/career-vault -->
 
 This folder is a Markdown job-search vault. Read `AGENTS.md` at the repo root before doing anything and follow it exactly: ingest first, raw is immutable, one note per entity, every note has frontmatter and ends with `## Related` and `## Backlinks`.
 

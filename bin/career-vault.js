@@ -23,13 +23,23 @@ const tty = Boolean(process.stdout.isTTY) && !process.env.NO_COLOR;
 const bold = (s) => (tty ? `\x1b[1m${s}\x1b[22m` : s);
 const dim = (s) => (tty ? `\x1b[2m${s}\x1b[22m` : s);
 const out = (s = '') => process.stdout.write(s + '\n');
+
+// Branding. One mark (the bar), one tagline, one credit line. Dim, once per surface, no network.
+const TAGLINE = 'An internship search your coding agent runs.';
+const CREDIT = 'made by Emre Selcuk \u00b7 emrecanselcuk.com/kit';
+const END_CREDIT = 'built with career-vault by Emre Selcuk \u00b7 star it: github.com/EmreSelcuk1492/career-vault';
+const unicodeOk = process.platform !== 'win32' || Boolean(process.env.WT_SESSION);
+const BAR = tty && unicodeOk ? '\u258c' : '|';
 const fail = (msg) => {
   process.stderr.write(`career-vault: ${msg}\n`);
   process.exit(1);
 };
 
 const HELP = `
-${bold('career-vault')} ${pkg.version}
+${bold(`${BAR} career-vault`)}  ${pkg.version}
+${bold(BAR)} ${TAGLINE}
+${dim(CREDIT)}
+
 Scaffold a Markdown job-search vault that an AI coding agent runs for you.
 
 ${bold('Usage')}
@@ -51,6 +61,26 @@ ${bold('Flags')}
 ${bold('Example')}
   npx career-vault --name "Alex" --season summer-2027 --roles pm,tpm --agent claude --connectors gmail --push
 `.trimStart();
+
+// ---------------------------------------------------------------------------
+// First screen: printed once before the first question.
+
+function welcome(questions) {
+  const wide = (process.stdout.columns || 80) >= 60;
+  const count = questions === 1 ? '1 question' : `${questions} questions`;
+  out();
+  out(`  ${bold(`${BAR} career-vault`)}  ${dim(pkg.version)}`);
+  out(`  ${bold(BAR)} ${TAGLINE}`);
+  out();
+  if (wide) {
+    out('  Builds a folder of Markdown: applications, companies, people, interview');
+    out('  prep, and the rules your coding agent follows to keep it all current.');
+    out();
+  }
+  out(dim(wide ? `  ${count} \u00b7 enter accepts the default \u00b7 files stay on your machine` : `  ${count} \u00b7 files stay local`));
+  out(dim(`  ${CREDIT}`));
+  out();
+}
 
 // ---------------------------------------------------------------------------
 // Prompts (numbered choices, readline only)
@@ -186,9 +216,8 @@ async function main() {
 
   if (!flags.yes) {
     if (!process.stdin.isTTY) fail('no terminal for prompts. Pass -y with flags, or run in a terminal.');
-    out(bold(`career-vault ${pkg.version}`));
-    out(dim('A few questions. Enter accepts the default.'));
-    out();
+    const questions = ['name', 'season', 'roles', 'agent', 'connectors', 'push'].filter((k) => partial[k] === undefined).length + (dir === undefined ? 1 : 0);
+    welcome(questions);
     const { ask, close } = makeAsker();
     try {
       if (partial.name === undefined) partial.name = await askText(ask, 'Your name', '');
@@ -257,6 +286,8 @@ async function main() {
   out();
   out(dim('Reproduce these answers with:'));
   out(`  ${toCommand(answers)}`);
+  out();
+  out(dim(END_CREDIT));
 }
 
 main().catch((e) => fail(e?.message ?? String(e)));

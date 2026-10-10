@@ -1,6 +1,6 @@
 {
   "name": "career-vault",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Scaffold a Markdown internship and job-search vault that an AI coding agent runs for you: routing rules, note templates, hubs, and git hooks.",
   "type": "module",
   "bin": {

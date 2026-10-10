@@ -2,6 +2,7 @@
 name: apply
 description: Ingest a job posting (link, pasted text, or "company + role") into the career vault. Save raw, create the application note, create or update the company note, update the pipeline hubs. Use when the user drops a posting, says "apply to X", or "add X to the pipeline".
 ---
+<!-- career-vault {{version}} · (c) 2026 Emre Selcuk · MIT · https://github.com/EmreSelcuk1492/career-vault -->
 
 # /apply
 

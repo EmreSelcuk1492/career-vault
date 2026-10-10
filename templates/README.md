@@ -79,3 +79,9 @@ Connectors:
 | A new contact | Copy `meta/templates/person.md` to `people/<slug>.md` |
 | "Where do I stand?" | Rebuild [[meta/mocs/pipeline]] from the frontmatter of `applications/`, every Monday |
 {{/if}}
+
+---
+
+[![Built with career-vault](https://img.shields.io/badge/built_with-career--vault-1d1d1f)](https://github.com/EmreSelcuk1492/career-vault)
+
+Built with [career-vault](https://github.com/EmreSelcuk1492/career-vault) by [Emre Selcuk](https://www.emrecanselcuk.com/kit). MIT licensed.

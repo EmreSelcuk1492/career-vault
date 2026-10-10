@@ -12,7 +12,14 @@ const kit = JSON.parse(readFileSync(join(root, 'dist', 'kit.json'), 'utf8'));
 
 // \u2014 and \u2013 are the em-dash and en-dash, written as escapes so the dashes never appear in this repo.
 const FORBIDDEN = [/Emre/, /\u2014/, /\u2013/, /4100/, /Seattle/, /HardLaunch/, /Jenni/i, /AMPACC/, /Entegris/, /selcuk/i];
-const ALLOWED = [/https:\/\/github\.com\/EmreSelcuk1492\/career-vault/, /www\.emrecanselcuk\.com/];
+// The creator credit is the one allowed mention of the author: exact strings only.
+const ALLOWED = [
+  /\(c\) 2026 Emre Selcuk · MIT/,
+  /by \[Emre Selcuk\]\(https:\/\/www\.emrecanselcuk\.com\/kit\)/,
+  /"author": "Emre Selcuk \(https:\/\/www\.emrecanselcuk\.com\/kit\)"/,
+  /https:\/\/github\.com\/EmreSelcuk1492\/career-vault/,
+  /www\.emrecanselcuk\.com/,
+];
 
 const base = { name: 'Alex', date: '2026-10-10' };
 
@@ -126,4 +133,27 @@ test('settings.json is valid JSON with and without push', () => {
 test('hooks carry mode 755', () => {
   const files = renderKit(kit, { ...base, season: 'summer-2027', roles: ['swe'], agent: 'claude', connectors: [], push: true });
   for (const f of files.filter((x) => x.path.endsWith('.sh'))) assert.equal(f.mode, '755', f.path);
+});
+
+test('creator credit lands on every surface that gets copied', () => {
+  for (const agent of ['claude', 'cursor', 'codex', 'none']) {
+    const files = renderKit(kit, { ...base, season: 'summer-2027', roles: ['swe'], connectors: [], agent });
+    const byPath = Object.fromEntries(files.map((f) => [f.path, f.content]));
+    const credit = `<!-- career-vault ${kit.version} · (c) 2026 Emre Selcuk · MIT · https://github.com/EmreSelcuk1492/career-vault -->`;
+    const carriers = ['CLAUDE.md', 'AGENTS.md', '.cursor/rules/career-vault.mdc'].concat(
+      ['apply', 'company', 'interview', 'pipeline'].map((s) => `.claude/skills/${s}/SKILL.md`),
+    );
+    for (const p of carriers) if (byPath[p] !== undefined) assert.ok(byPath[p].includes(credit), `${p} [${agent}] lacks the credit`);
+    assert.match(byPath['README.md'], /Built with \[career-vault\]\(https:\/\/github\.com\/EmreSelcuk1492\/career-vault\) by \[Emre Selcuk\]/);
+    const stamp = JSON.parse(byPath['meta/.career-vault.json']);
+    assert.deepEqual(
+      { generator: stamp.generator, version: stamp.version, created: stamp.created },
+      { generator: 'career-vault', version: kit.version, created: '2026-10-10' },
+    );
+  }
+});
+
+test('skill and rule files still open with their frontmatter', () => {
+  const files = renderKit(kit, { ...base, agent: 'claude' }).concat(renderKit(kit, { ...base, agent: 'cursor' }));
+  for (const f of files) if (/SKILL\.md$|\.mdc$/.test(f.path)) assert.ok(f.content.startsWith('---\n'), f.path);
 });

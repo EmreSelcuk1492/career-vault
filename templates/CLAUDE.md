@@ -1,3 +1,4 @@
+<!-- career-vault {{version}} · (c) 2026 Emre Selcuk · MIT · https://github.com/EmreSelcuk1492/career-vault -->
 # {{whose}} career vault
 
 Operating manual for this repo. Drop material in, it gets routed, linked, and committed. Current campaign: **{{season}} internships**. Target roles: {{roles_csv}}.

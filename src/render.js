@@ -132,6 +132,7 @@ export function buildVars(kit, answers) {
     season_slug: answers.season,
     season_tag: seasonTag(answers.season),
     date: answers.date,
+    version: kit?.version ?? '',
     year: String(answers.date).slice(0, 4),
     roles_list: roleLabels.map((l) => `- ${l}`).join('\n'),
     roles_csv: roleLabels.join(', '),

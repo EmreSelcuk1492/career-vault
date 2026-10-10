@@ -1,0 +1,8 @@
+{
+  "generator": "career-vault",
+  "version": "{{version}}",
+  "created": "{{date}}",
+  "source": "https://github.com/EmreSelcuk1492/career-vault",
+  "author": "Emre Selcuk (https://www.emrecanselcuk.com/kit)",
+  "license": "MIT"
+}

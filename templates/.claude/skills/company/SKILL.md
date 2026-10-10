@@ -2,6 +2,7 @@
 name: company
 description: Research a target company for the internship search (open intern roles for {{season}}, product, intern program facts, people angles) and write companies/<slug>.md. Use when the user says "look into X", "add X as a target", or names a company they are curious about.
 ---
+<!-- career-vault {{version}} · (c) 2026 Emre Selcuk · MIT · https://github.com/EmreSelcuk1492/career-vault -->
 
 # /company
 

@@ -2,6 +2,7 @@
 name: pipeline
 description: Rebuild the career vault's hubs and surface what needs attention (pipeline MOC, companies and people MOCs, README tables, open questions, stale applications, deadlines in the next 14 days). Use when the user asks "where do I stand", "what's due", "pipeline", or weekly on Mondays.
 ---
+<!-- career-vault {{version}} · (c) 2026 Emre Selcuk · MIT · https://github.com/EmreSelcuk1492/career-vault -->
 
 # /pipeline
 

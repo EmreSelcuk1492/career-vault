@@ -2,6 +2,7 @@
 name: interview
 description: Build an interview prep note for a scheduled round (likely questions, matched STAR stories from the story bank, technical topics, questions to ask), or ingest a post-interview debrief. Use when the user says "I have an interview with X", "prep me for X", or "just finished the X interview".
 ---
+<!-- career-vault {{version}} · (c) 2026 Emre Selcuk · MIT · https://github.com/EmreSelcuk1492/career-vault -->
 
 # /interview
 
